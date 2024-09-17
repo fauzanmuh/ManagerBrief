@@ -18,7 +18,8 @@ class Employee extends Model
         'name',
         'email',
         'role_id',
-        'position'
+        'position',
+        'address',
     ];
 
     public function role()
