@@ -12,7 +12,8 @@ class Module extends Model
     protected $fillable = [
         'project_id',
         'module_code',
-        'module_name'];
+        'module_name'
+    ];
 
     public function project()
     {

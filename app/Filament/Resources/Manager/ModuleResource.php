@@ -22,6 +22,8 @@ class ModuleResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-sparkles';
 
+    protected static ?int $navigationSort = 7;
+    
     public static function getNavigationLabel(): string
     {
         return 'Module';
