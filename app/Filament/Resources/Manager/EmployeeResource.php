@@ -7,6 +7,7 @@ use App\Filament\Resources\Manager\EmployeeResource\RelationManagers;
 use App\Models\Employee;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -20,6 +21,8 @@ class EmployeeResource extends Resource
     protected static ?string $model = Employee::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
+
+    protected static ?int $navigationSort = 2;
 
     public static function getNavigationLabel(): string
     {
@@ -37,20 +40,18 @@ class EmployeeResource extends Resource
                 TextInput::make('name')
                     ->required()
                     ->label('Name')
+                    ->columnSpanFull()
                     ->maxLength(255),
                 TextInput::make('email')
                     ->email()
                     ->required()
                     ->label('Email'),
-                Select::make('role_id')
-                    ->label('Role')
-                    ->relationship('role', 'name')
-                    ->required(),
                 TextInput::make(name: 'position')
                     ->label('Position')
                     ->maxLength(150),
-                TextInput::make(name: 'address')
+                Textarea::make(name: 'address')
                     ->label('Address')
+                    ->columnSpanFull()
                     ->maxLength(255),
             ]);
     }
@@ -66,10 +67,6 @@ class EmployeeResource extends Resource
                 Tables\Columns\TextColumn::make('email')
                     ->label('Email')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('role.name')
-                    ->label('Role')
-                    ->searchable()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('position')
                     ->label('Position')
                     ->searchable(),
