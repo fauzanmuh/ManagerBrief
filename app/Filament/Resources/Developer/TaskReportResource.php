@@ -79,6 +79,7 @@ class TaskReportResource extends Resource
                 Toggle::make('is_overtime')
                     ->label('Is Overtime')
                     ->default(false)
+                    ->inline()
                     ->required(),
             ]);
     }
@@ -113,6 +114,7 @@ class TaskReportResource extends Resource
                     ->sortable(),
                 Tables\Columns\IconColumn::make('is_overtime')
                         ->label('Is Overtime')
+                        ->sortable()
                         ->boolean(),
             ])
             ->filters([
