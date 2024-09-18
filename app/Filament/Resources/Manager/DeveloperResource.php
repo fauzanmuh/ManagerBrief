@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Manager;
 use App\Filament\Resources\Manager\DeveloperResource\Pages;
 use App\Filament\Resources\Manager\DeveloperResource\RelationManagers;
 use App\Models\Developer;
+use Auth;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
@@ -94,6 +95,56 @@ class DeveloperResource extends Resource
         return [
             //
         ];
+    }
+
+    public static function canViewAny(): bool
+    {
+        return Auth::user()->can('manage developer');
+    }
+
+    public static function canCreate(): bool
+    {
+        return Auth::user()->can('manage developer');
+    }
+
+    public static function canEdit($record): bool
+    {
+        return Auth::user()->can('manage developer');
+    }
+
+    public static function canDelete($record): bool
+    {
+        return Auth::user()->can('manage developer');
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return Auth::user()->can('manage developer');
+    }
+
+    public static function canForceDelete($record): bool
+    {
+        return Auth::user()->can('manage developer');
+    }
+
+    public static function canForceDeleteAny(): bool
+    {
+        return Auth::user()->can('manage developer');
+    }
+
+    public static function canRestore($record): bool
+    {
+        return Auth::user()->can('manage developer');
+    }
+
+    public static function canRestoreAny(): bool
+    {
+        return Auth::user()->can('manage developer');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Management';
     }
 
     public static function getPages(): array

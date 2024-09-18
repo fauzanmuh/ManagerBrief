@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Manager;
 use App\Filament\Resources\Manager\EmployeeResource\Pages;
 use App\Filament\Resources\Manager\EmployeeResource\RelationManagers;
 use App\Models\Employee;
+use Auth;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -97,6 +98,56 @@ class EmployeeResource extends Resource
         return [
             //
         ];
+    }
+
+    public static function canViewAny(): bool
+    {
+        return Auth::user()->can('manage employees');
+    }
+
+    public static function canCreate(): bool
+    {
+        return Auth::user()->can('manage employees');
+    }
+
+    public static function canEdit($record): bool
+    {
+        return Auth::user()->can('manage employees');
+    }
+
+    public static function canDelete($record): bool
+    {
+        return Auth::user()->can('manage employees');
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return Auth::user()->can('manage employees');
+    }
+
+    public static function canForceDelete($record): bool
+    {
+        return Auth::user()->can('manage employees');
+    }
+
+    public static function canForceDeleteAny(): bool
+    {
+        return Auth::user()->can('manage employees');
+    }
+
+    public static function canRestore($record): bool
+    {
+        return Auth::user()->can('manage employees');
+    }
+
+    public static function canRestoreAny(): bool
+    {
+        return Auth::user()->can('manage employees');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Management';
     }
 
     public static function getPages(): array

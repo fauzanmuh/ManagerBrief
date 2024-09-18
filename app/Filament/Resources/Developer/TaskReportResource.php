@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Developer;
 use App\Filament\Resources\Developer\TaskReportResource\Pages;
 use App\Filament\Resources\Developer\TaskReportResource\RelationManagers;
 use App\Models\TaskReport;
+use Auth;
 use Date;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
@@ -139,6 +140,51 @@ class TaskReportResource extends Resource
         return [
             //
         ];
+    }
+
+    public static function canViewAny(): bool
+    {
+        return Auth::user()->can('manage reports');
+    }
+
+    public static function canCreate(): bool
+    {
+        return Auth::user()->can('manage reports');
+    }
+
+    public static function canEdit($record): bool
+    {
+        return Auth::user()->can('manage reports');
+    }
+
+    public static function canDelete($record): bool
+    {
+        return Auth::user()->can('manage reports');
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return Auth::user()->can('manage reports');
+    }
+
+    public static function canForceDelete($record): bool
+    {
+        return Auth::user()->can('manage reports');
+    }
+
+    public static function canForceDeleteAny(): bool
+    {
+        return Auth::user()->can('manage reports');
+    }
+
+    public static function canRestore($record): bool
+    {
+        return Auth::user()->can('manage reports');
+    }
+
+    public static function canRestoreAny(): bool
+    {
+        return Auth::user()->can('manage reports');
     }
 
     public static function getPages(): array

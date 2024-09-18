@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Manager;
 use App\Filament\Resources\Manager\ModuleResource\Pages;
 use App\Filament\Resources\Manager\ModuleResource\RelationManagers;
 use App\Models\Module;
+use Auth;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -91,6 +92,56 @@ class ModuleResource extends Resource
         return [
             //
         ];
+    }
+
+    public static function canViewAny(): bool
+    {
+        return Auth::user()->can('manage modules');
+    }
+
+    public static function canCreate(): bool
+    {
+        return Auth::user()->can('manage modules');
+    }
+
+    public static function canEdit($record): bool
+    {
+        return Auth::user()->can('manage modules');
+    }
+
+    public static function canDelete($record): bool
+    {
+        return Auth::user()->can('manage modules');
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return Auth::user()->can('manage modules');
+    }
+
+    public static function canForceDelete($record): bool
+    {
+        return Auth::user()->can('manage modules');
+    }
+
+    public static function canForceDeleteAny(): bool
+    {
+        return Auth::user()->can('manage modules');
+    }
+
+    public static function canRestore($record): bool
+    {
+        return Auth::user()->can('manage modules');
+    }
+
+    public static function canRestoreAny(): bool
+    {
+        return Auth::user()->can('manage modules');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Project Management';
     }
 
     public static function getPages(): array

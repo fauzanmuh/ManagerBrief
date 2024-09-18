@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Manager;
 use App\Filament\Resources\Manager\UserResource\Pages;
 use App\Filament\Resources\Manager\UserResource\RelationManagers;
 use App\Models\User;
+use Auth;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -46,7 +47,7 @@ class UserResource extends Resource
                     ->maxLength(length: 25),
                 Select::make('role_id')
                     ->label('Role')
-                    ->relationship('role', 'name'),
+                    ->relationship('roles', 'name'),
                 TextInput::make('email')
                     ->email()
                     ->required(),
@@ -92,6 +93,56 @@ class UserResource extends Resource
         return [
             //
         ];
+    }
+
+    public static function canViewAny(): bool
+    {
+        return Auth::user()->can('manage data user');
+    }
+
+    public static function canCreate(): bool
+    {
+        return Auth::user()->can('manage data user');
+    }
+
+    public static function canEdit($record): bool
+    {
+        return Auth::user()->can('manage data user');
+    }
+
+    public static function canDelete($record): bool
+    {
+        return Auth::user()->can('manage data user');
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return Auth::user()->can('manage data user');
+    }
+
+    public static function canForceDelete($record): bool
+    {
+        return Auth::user()->can('manage data user');
+    }
+
+    public static function canForceDeleteAny(): bool
+    {
+        return Auth::user()->can('manage data user');
+    }
+
+    public static function canRestore($record): bool
+    {
+        return Auth::user()->can('manage data user');
+    }
+
+    public static function canRestoreAny(): bool
+    {
+        return Auth::user()->can('manage data user');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Management';
     }
 
     public static function getPages(): array

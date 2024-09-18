@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Manager;
 use App\Filament\Resources\Manager\ProjectResource\Pages;
 use App\Filament\Resources\Manager\ProjectResource\RelationManagers;
 use App\Models\Project;
+use Auth;
 use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -81,6 +82,56 @@ class ProjectResource extends Resource
         return [
             //
         ];
+    }
+
+    public static function canViewAny(): bool
+    {
+        return Auth::user()->can('manage projects');
+    }
+
+    public static function canCreate(): bool
+    {
+        return Auth::user()->can('manage projects');
+    }
+
+    public static function canEdit($record): bool
+    {
+        return Auth::user()->can('manage projects');
+    }
+
+    public static function canDelete($record): bool
+    {
+        return Auth::user()->can('manage projects');
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return Auth::user()->can('manage projects');
+    }
+
+    public static function canForceDelete($record): bool
+    {
+        return Auth::user()->can('manage projects');
+    }
+
+    public static function canForceDeleteAny(): bool
+    {
+        return Auth::user()->can('manage projects');
+    }
+
+    public static function canRestore($record): bool
+    {
+        return Auth::user()->can('manage projects');
+    }
+
+    public static function canRestoreAny(): bool
+    {
+        return Auth::user()->can('manage projects');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Project Management';
     }
 
     public static function getPages(): array

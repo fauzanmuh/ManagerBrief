@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Manager;
 use App\Filament\Resources\Manager\TaskResource\Pages;
 use App\Filament\Resources\Manager\TaskResource\RelationManagers;
 use App\Models\Task;
+use Auth;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -117,6 +118,56 @@ class TaskResource extends Resource
         return [
             //
         ];
+    }
+
+    public static function canViewAny(): bool
+    {
+        return Auth::user()->can('manage tasks');
+    }
+
+    public static function canCreate(): bool
+    {
+        return Auth::user()->can('manage tasks');
+    }
+
+    public static function canEdit($record): bool
+    {
+        return Auth::user()->can('manage tasks');
+    }
+
+    public static function canDelete($record): bool
+    {
+        return Auth::user()->can('manage tasks');
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return Auth::user()->can('manage tasks');
+    }
+
+    public static function canForceDelete($record): bool
+    {
+        return Auth::user()->can('manage tasks');
+    }
+
+    public static function canForceDeleteAny(): bool
+    {
+        return Auth::user()->can('manage tasks');
+    }
+
+    public static function canRestore($record): bool
+    {
+        return Auth::user()->can('manage tasks');
+    }
+
+    public static function canRestoreAny(): bool
+    {
+        return Auth::user()->can('manage tasks');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Task Management';
     }
 
     public static function getPages(): array

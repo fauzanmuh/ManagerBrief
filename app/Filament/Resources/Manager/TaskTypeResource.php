@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Manager;
 use App\Filament\Resources\Manager\TaskTypeResource\Pages;
 use App\Filament\Resources\Manager\TaskTypeResource\RelationManagers;
 use App\Models\TaskType;
+use Auth;
 use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -73,6 +74,56 @@ class TaskTypeResource extends Resource
         return [
             //
         ];
+    }
+
+    public static function canViewAny(): bool
+    {
+        return Auth::user()->can('manage task types');
+    }
+
+    public static function canCreate(): bool
+    {
+        return Auth::user()->can('manage task types');
+    }
+
+    public static function canEdit($record): bool
+    {
+        return Auth::user()->can('manage task types');
+    }
+
+    public static function canDelete($record): bool
+    {
+        return Auth::user()->can('manage task types');
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return Auth::user()->can('manage task types');
+    }
+
+    public static function canForceDelete($record): bool
+    {
+        return Auth::user()->can('manage task types');
+    }
+
+    public static function canForceDeleteAny(): bool
+    {
+        return Auth::user()->can('manage task types');
+    }
+
+    public static function canRestore($record): bool
+    {
+        return Auth::user()->can('manage task types');
+    }
+
+    public static function canRestoreAny(): bool
+    {
+        return Auth::user()->can('manage task types');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Task Management';
     }
 
     public static function getPages(): array
