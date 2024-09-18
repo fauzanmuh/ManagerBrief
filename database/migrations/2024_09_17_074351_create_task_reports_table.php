@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->date('date');
             $table->time('start_time');
-            $table->time('end_time');
+            $table->time('end_time')->nullable();
             $table->foreignId('task_id')->constrained('tasks')->onDelete('cascade');
             $table->foreignId('developer_id')->constrained('developers')->onDelete('cascade');
             $table->enum('task_status', ['done', 'progress', 'not_started']);

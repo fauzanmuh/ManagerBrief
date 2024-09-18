@@ -20,6 +20,8 @@ class TaskTypeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?int $navigationSort = 6;
+    
     public static function getNavigationLabel(): string
     {
         return 'Task Type';
@@ -35,6 +37,7 @@ class TaskTypeResource extends Resource
             ->schema([
                 TextInput::make('name')
                     ->required()
+                    ->columnSpanFull()
                     ->label('Name')
             ]);
     }
@@ -43,13 +46,20 @@ class TaskTypeResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Name')
+                    ->searchable()
+                    ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
