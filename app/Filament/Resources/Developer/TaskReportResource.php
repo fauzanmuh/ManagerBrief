@@ -61,6 +61,7 @@ class TaskReportResource extends Resource
                     ->label('End Time'),
                 ToggleButtons::make('task_status')
                     ->label('Task Status')
+                    ->inline()
                     ->options([
                         'progress' => 'On Progress',
                         'done' => 'Done',
@@ -80,7 +81,6 @@ class TaskReportResource extends Resource
                 Toggle::make('is_overtime')
                     ->label('Is Overtime')
                     ->default(false)
-                    ->inline()
                     ->required(),
             ]);
     }

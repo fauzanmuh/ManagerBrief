@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Filament App'),
+    'name' => env('APP_NAME', 'Task Manager App'),
 
     /*
     |--------------------------------------------------------------------------

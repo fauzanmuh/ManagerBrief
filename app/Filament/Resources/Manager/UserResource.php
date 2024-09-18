@@ -32,7 +32,7 @@ class UserResource extends Resource
     }
     public static function getPluralLabel(): string
     {
-        return 'data User';
+        return 'Data User';
     }
 
     public static function form(Form $form): Form
