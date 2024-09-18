@@ -21,11 +21,11 @@ class TaskReport extends Model
 
     public function task()
     {
-        return $this->hasMany(Task::class);
+        return $this->belongsTo(Task::class);
     }
 
     public function developer()
     {
-        return $this->hasMany(Developer::class);
+        return $this->belongsTo(Developer::class);
     }
 }
