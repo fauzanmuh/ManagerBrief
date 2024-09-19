@@ -75,6 +75,10 @@ class TaskResource extends Resource
                     ->label('Module')
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('module.module_code')
+                    ->label('Module Code')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('taskType.name')
                     ->label('Task Type')
                     ->searchable()
