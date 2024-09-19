@@ -29,8 +29,9 @@ class AdminPanelProvider extends PanelProvider
             ->path('user')
             ->login()
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Green,
             ])
+            ->font('Montserrat')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
@@ -40,17 +41,18 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
             ])
-            ->middleware([
-                EncryptCookies::class,
-                AddQueuedCookiesToResponse::class,
-                StartSession::class,
-                AuthenticateSession::class,
-                ShareErrorsFromSession::class,
-                VerifyCsrfToken::class,
-                SubstituteBindings::class,
-                DisableBladeIconComponents::class,
-                DispatchServingFilamentEvent::class,
-            ],
+            ->middleware(
+                [
+                    EncryptCookies::class,
+                    AddQueuedCookiesToResponse::class,
+                    StartSession::class,
+                    AuthenticateSession::class,
+                    ShareErrorsFromSession::class,
+                    VerifyCsrfToken::class,
+                    SubstituteBindings::class,
+                    DisableBladeIconComponents::class,
+                    DispatchServingFilamentEvent::class,
+                ],
             )
             ->authMiddleware([
                 Authenticate::class,
