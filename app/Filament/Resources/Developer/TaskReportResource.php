@@ -6,7 +6,6 @@ use App\Filament\Resources\Developer\TaskReportResource\Pages;
 use App\Filament\Resources\Developer\TaskReportResource\RelationManagers;
 use App\Models\TaskReport;
 use Auth;
-use Date;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
@@ -27,8 +26,6 @@ class TaskReportResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-clock';
 
-    protected static ?int $navigationSort = 8;
-    
     public static function getNavigationLabel(): string
     {
         return 'Task Report';
@@ -36,7 +33,7 @@ class TaskReportResource extends Resource
     public static function getPluralLabel(): string
     {
         return 'Task Report';
-    } 
+    }
 
     public static function form(Form $form): Form
     {
@@ -57,7 +54,7 @@ class TaskReportResource extends Resource
                         return \App\Models\User::pluck('name', 'id');
                     })
                     ->default(function () {
-                        return auth()->user()->id; // Mengatur default dengan ID user yang login saat ini
+                        return auth()->user()->id;
                     })
                     ->disabled(),
                 DatePicker::make('date')
@@ -100,30 +97,43 @@ class TaskReportResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('module.module_name')
                     ->label('Module')
+                    ->alignCenter()
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('module.module_code')
                     ->label('Module Code')
+                    ->alignCenter()
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('task.task_name')
                     ->label('Task')
                     ->searchable()
+                    ->alignCenter()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('developer.developer_name')
+                Tables\Columns\TextColumn::make('task.task_code')
+                    ->label('Task Code')
+                    ->searchable()
+                    ->alignCenter()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('user.name')
                     ->label('Developer')
+                    ->alignCenter()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('date')
                     ->label('Date')
+                    ->alignCenter()
                     ->date(),
                 Tables\Columns\TextColumn::make('start_time')
                     ->label('Start Time')
+                    ->alignCenter()
                     ->time(),
                 Tables\Columns\TextColumn::make('end_time')
                     ->label('End Time')
+                    ->alignCenter()
                     ->time(),
                 SelectColumn::make('task_status')
                     ->label('Task Status')
+                    ->alignCenter()
                     ->options([
                         'progress' => 'On Progress',
                         'done' => 'Done',
@@ -131,16 +141,16 @@ class TaskReportResource extends Resource
                     ])
                     ->sortable(),
                 Tables\Columns\IconColumn::make('is_overtime')
-                        ->label('Is Overtime')
-                        ->sortable()
-                        ->boolean(),
+                    ->label('Is Overtime')
+                    ->sortable()
+                    ->alignCenter()
+                    ->boolean(),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
-                    Tables\Actions\CreateAction::make(),
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
@@ -206,16 +216,13 @@ class TaskReportResource extends Resource
     }
 
     public static function getNavigationBadge(): ?string
-{
-    // Mendapatkan ID pengguna yang saat ini login
-    $userId = auth()->id();
+    {
+        $userId = auth()->id();
 
-    // Menghitung jumlah TaskReport yang dibuat oleh pengguna tersebut
-    $count = static::getModel()::where('user_id', $userId)->count();
+        $count = static::getModel()::where('user_id', $userId)->count();
 
-    // Mengembalikan jumlah entitas atau null jika tidak ada
-    return $count > 0 ? (string) $count : null;
-}
+        return $count > 0 ? (string) $count : null;
+    }
 
     public static function getPages(): array
     {
