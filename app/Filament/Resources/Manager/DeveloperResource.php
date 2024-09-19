@@ -41,9 +41,15 @@ class DeveloperResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('developer_name')
+                Select::make('user_id')
                     ->label('Developer Name')
-                    ->required(),
+                    ->relationship('user', 'name')
+                    ->required()
+                    ->options(function () {
+                        return \App\Models\User::whereHas('roles', function ($query) {
+                            $query->where('name', 'developer'); // Filter berdasarkan role 'developer'
+                        })->pluck('name', 'id'); // Mengambil opsi dengan nama pengguna dan ID
+                    }),
                 TextInput::make('developer_job_title')
                     ->label('Developer Job Title')
                     ->required(),
@@ -61,7 +67,7 @@ class DeveloperResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('developer_name')
+            TextColumn::make('user.name')
                     ->label('Developer Name')
                     ->searchable()
                     ->sortable(),

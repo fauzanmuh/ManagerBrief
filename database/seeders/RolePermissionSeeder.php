@@ -17,7 +17,6 @@ class RolePermissionSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // Permissions
-        Permission::create(['name' => 'manage employees']);
         Permission::create(['name' => 'manage data user']);
         Permission::create(['name' => 'manage developer']);
         Permission::create(['name' => 'manage tasks']);
@@ -32,7 +31,7 @@ class RolePermissionSeeder extends Seeder
         $developer = Role::create(['name' => 'developer']);
 
         // Assign permissions to roles
-        $manager->givePermissionTo(['manage employees', 'manage data user', 'manage developer', 'manage tasks', 'manage modules', 'manage projects', 'manage task types']);
+        $manager->givePermissionTo(['manage data user', 'manage developer', 'manage tasks', 'manage modules', 'manage projects', 'manage task types']);
         $developer->givePermissionTo(['manage reports']);
     }
 }

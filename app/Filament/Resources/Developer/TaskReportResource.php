@@ -50,10 +50,16 @@ class TaskReportResource extends Resource
                     ->label('Task')
                     ->relationship('task', 'task_name')
                     ->required(),
-                Select::make('developer_id')
+                Select::make('user_id')
                     ->label('Developer')
-                    ->relationship('developer', 'developer_name')
-                    ->required(),
+                    ->relationship('user', 'name')
+                    ->options(function () {
+                        return \App\Models\User::pluck('name', 'id');
+                    })
+                    ->default(function () {
+                        return auth()->user()->id; // Mengatur default dengan ID user yang login saat ini
+                    })
+                    ->disabled(),
                 DatePicker::make('date')
                     ->label('Date')
                     ->required(),
@@ -134,6 +140,7 @@ class TaskReportResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
+                    Tables\Actions\CreateAction::make(),
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
@@ -198,9 +205,17 @@ class TaskReportResource extends Resource
         return Auth::user()->can('manage reports');
     }
 
-    public static function getNavigationBadge(): ?string {
-        return static::getModel()::count();
-    }
+    public static function getNavigationBadge(): ?string
+{
+    // Mendapatkan ID pengguna yang saat ini login
+    $userId = auth()->id();
+
+    // Menghitung jumlah TaskReport yang dibuat oleh pengguna tersebut
+    $count = static::getModel()::where('user_id', $userId)->count();
+
+    // Mengembalikan jumlah entitas atau null jika tidak ada
+    return $count > 0 ? (string) $count : null;
+}
 
     public static function getPages(): array
     {

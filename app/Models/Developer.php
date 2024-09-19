@@ -10,7 +10,7 @@ class Developer extends Model
     use HasFactory;
 
     protected $fillable = [
-        'developer_name',
+        'user_id',
         'developer_job_title',
         'username',
         'password',
@@ -19,5 +19,10 @@ class Developer extends Model
     public function taskReports()
     {
         return $this->hasMany(TaskReport::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
