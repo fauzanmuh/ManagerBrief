@@ -15,6 +15,7 @@ class TaskReport extends Model
         'end_time',
         'task_id',
         'developer_id',
+        'module_id',
         'task_status',
         'is_overtime',
     ];
@@ -26,6 +27,11 @@ class TaskReport extends Model
 
     public function developer()
     {
-        return $this->belongsTo(Developer::class);
+        return $this->belongsTo(Developer::class, 'developer_id');
+    }
+
+    public function module()
+    {
+        return $this->belongsTo(Module::class);
     }
 }

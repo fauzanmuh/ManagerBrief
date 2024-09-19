@@ -9,7 +9,6 @@ use Auth;
 use Date;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Components\Toggle;
@@ -43,6 +42,10 @@ class TaskReportResource extends Resource
     {
         return $form
             ->schema([
+                Select::make('module_id')
+                    ->label('Module')
+                    ->relationship('module', 'module_name')
+                    ->required(),
                 Select::make('task_id')
                     ->label('Task')
                     ->relationship('task', 'task_name')
@@ -89,6 +92,14 @@ class TaskReportResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('module.module_name')
+                    ->label('Module')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('module.module_code')
+                    ->label('Module Code')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('task.task_name')
                     ->label('Task')
                     ->searchable()
@@ -185,6 +196,10 @@ class TaskReportResource extends Resource
     public static function canRestoreAny(): bool
     {
         return Auth::user()->can('manage reports');
+    }
+
+    public static function getNavigationBadge(): ?string {
+        return static::getModel()::count();
     }
 
     public static function getPages(): array

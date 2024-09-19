@@ -49,6 +49,7 @@ class TaskTypeResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label('Name')
+                    ->alignCenter()
                     ->searchable()
                     ->sortable(),
             ])
