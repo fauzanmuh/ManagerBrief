@@ -174,52 +174,56 @@ class TaskReportResource extends Resource
     }
 
     public static function downloadPdf(Request $request)
-{
-    $month = $request->input('month', Carbon::now()->format('m'));
-    $year = $request->input('year', Carbon::now()->format('Y'));
+    {
+        $month = $request->input('month', Carbon::now()->format('m'));
+        $year = $request->input('year', Carbon::now()->format('Y'));
 
-    $taskReports = TaskReport::whereYear('date', $year)
-        ->whereMonth('date', $month)
-        ->where('user_id', auth()->id())
-        ->where('task_status', 'done') // Filter hanya task yang selesai
-        ->get();
+        $taskReports = TaskReport::with(['module', 'task', 'user'])
+            ->whereMonth('date', $month)
+            ->whereYear('date', $year)
+            ->where('user_id', auth()->id())
+            ->where('task_status', 'done') // Filter hanya task yang selesai
+            ->get();
 
-    $overtimeLimit = Carbon::parse('17:00:00');
+        $monthName = Carbon::createFromFormat('m', $month)->format('F'); 
 
-    $totalOvertime = 0;
-    foreach ($taskReports as $report) {
-        $startTime = Carbon::parse($report->start_time);
-        $endTime = Carbon::parse($report->end_time);
+        $developerName = auth()->user()->name;
+        $overtimeLimit = Carbon::parse('17:00:00');
 
-        if ($endTime->lessThan($startTime)) {
-            $endTime->addDay();
-        }
+        $totalOvertime = 0;
+        foreach ($taskReports as $report) {
+            $startTime = Carbon::parse($report->start_time);
+            $endTime = Carbon::parse($report->end_time);
 
-        if ($report->is_overtime && $report->task_status == 'done') {
-            if ($endTime->greaterThan($overtimeLimit)) {
-                if ($startTime->lessThan($overtimeLimit)) {
-                    $overtimeMinutes = $endTime->diffInMinutes($overtimeLimit);
-                } else {
-                    $overtimeMinutes = $endTime->diffInMinutes($startTime);
-                }
-
-                $totalOvertime += $overtimeMinutes / 60;
+            if ($endTime->lessThan($startTime)) {
+                $endTime->addDay();
             }
+
+            if ($report->is_overtime && $report->task_status == 'done') {
+                if ($endTime->greaterThan($overtimeLimit)) {
+                    if ($startTime->lessThan($overtimeLimit)) {
+                        $overtimeMinutes = $endTime->diffInMinutes($overtimeLimit);
+                    } else {
+                        $overtimeMinutes = $endTime->diffInMinutes($startTime);
+                    }
+
+                    $totalOvertime += $overtimeMinutes / 60;
+                }
+            }
+            // $totalOvertime = max(0, round($totalOvertime, 2));
         }
-        // $totalOvertime = max(0, round($totalOvertime, 2));
+
+        // Generate PDF
+        $pdf = Pdf::loadView('pdf.task_report', [
+            'taskReports' => $taskReports,
+            'totalOvertime' => round($totalOvertime, 2), // Pembulatan overtime
+            'monthName' => $monthName,
+            'year' => $year,
+            'developerName' => $developerName
+        ]);
+
+        return $pdf->download('Report-' . $developerName . '-' . $monthName . '-' . $year . '.pdf');
     }
-
-    // Generate PDF
-    $pdf = Pdf::loadView('pdf.task_report', [
-        'taskReports' => $taskReports,
-        'totalOvertime' => round($totalOvertime, 2), // Pembulatan overtime
-        'month' => $month,
-        'year' => $year
-    ]);
-
-    // Unduh PDF
-    return $pdf->download('Report-' . $month . '-' . $year . '.pdf');
-}
 
     public static function canViewAny(): bool
     {

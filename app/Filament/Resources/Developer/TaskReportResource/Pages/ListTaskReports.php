@@ -18,12 +18,16 @@ class ListTaskReports extends ListRecords
         return [
             Action::make('download') // Use the correct namespace
                 ->label('Download PDF')
+                ->color('warning')
+                ->icon('heroicon-m-arrow-down-tray')
                 ->url(fn() => route('task-reports.download', [
                     'month' => request()->input('month', Carbon::now()->format('m')),
                     'year' => request()->input('year', Carbon::now()->format('Y'))
                 ]))
                 ->openUrlInNewTab(),
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->label('Create Task Report')
+                ->icon('heroicon-m-plus'),
         ];
     }
 
