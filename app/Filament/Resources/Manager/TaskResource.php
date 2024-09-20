@@ -24,7 +24,7 @@ class TaskResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?int $navigationSort = 5;
-    
+
     public static function getNavigationLabel(): string
     {
         return 'Task';
@@ -38,14 +38,27 @@ class TaskResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('module_id')
-                    ->label('Module')
-                    ->relationship('module', 'module_name')
-                    ->required(),
                 Select::make('task_type_id')
                     ->label('Task Type')
                     ->relationship('taskType', 'name')
-                    ->required(),
+                    ->required()
+                    ->reactive(),
+
+                Select::make('module_id')
+                    ->label('Module')
+                    ->relationship('module', 'module_name')
+                    ->visible(
+                        fn($record, $get) => \App\Models\TaskType::query()
+                        ->where('id', $get('task_type_id'))
+                        ->whereIn('name', ['Task', 'R & D']) // Tampilkan jika Task Type adalah Task atau R&D
+                        ->exists()
+                    )
+                    ->disabled(
+                        fn($record, $get) => \App\Models\TaskType::query()
+                        ->where('id', $get('task_type_id'))
+                        ->whereIn('name', ['Meeting', 'Content', 'Discussion'])
+                        ->exists()
+                    ),
                 TextInput::make('task_code')
                     ->label('Task Code')
                     ->required(),
@@ -63,7 +76,7 @@ class TaskResource extends Resource
                     ->label('Task Description')
                     ->columnSpanFull()
                     ->required(),
-                
+
             ]);
     }
 
