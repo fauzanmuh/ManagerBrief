@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Developer\TaskReportResource\Pages;
 
 use App\Filament\Resources\Developer\TaskReportResource;
+use Auth;
 use Carbon\Carbon;
 use Filament\Actions;
 use Filament\Actions\Action;
@@ -32,7 +33,15 @@ class ListTaskReports extends ListRecords
     }
 
     protected function getTableQuery(): ?Builder
-    {
-        return parent::getTableQuery()->where('user_id', auth()->id());
+{
+    $query = parent::getTableQuery();
+
+    if (Auth::user()->hasRole('manager')) {
+        // Manajer dapat melihat semua data
+        return $query; 
     }
+
+    // Developer hanya dapat melihat data mereka sendiri
+    return $query->where('user_id', auth()->id());
+}
 }

@@ -142,6 +142,7 @@ class TaskReportResource extends Resource
                         'done' => 'Done',
                         'not_started' => 'Not Started'
                     ])
+                    ->disabled(fn ($record) => Auth::user()->hasRole('manager'))
                     ->sortable(),
                 Tables\Columns\IconColumn::make('is_overtime')
                     ->label('Is Overtime')
@@ -178,16 +179,26 @@ class TaskReportResource extends Resource
         $month = $request->input('month', Carbon::now()->format('m'));
         $year = $request->input('year', Carbon::now()->format('Y'));
 
-        $taskReports = TaskReport::with(['module', 'task', 'user'])
-            ->whereMonth('date', $month)
-            ->whereYear('date', $year)
-            ->where('user_id', auth()->id())
-            ->where('task_status', 'done') // Filter hanya task yang selesai
-            ->get();
+        // Cek peran pengguna
+        if (Auth::user()->hasRole('manager')) {
+            // Manajer dapat melihat semua laporan
+            $taskReports = TaskReport::with(['module', 'task', 'user'])
+                ->whereMonth('date', $month)
+                ->whereYear('date', $year)
+                ->where('task_status', 'done') // Filter hanya task yang selesai
+                ->get();
+        } else {
+            // Developer hanya dapat melihat laporan mereka sendiri
+            $taskReports = TaskReport::with(['module', 'task', 'user'])
+                ->whereMonth('date', $month)
+                ->whereYear('date', $year)
+                ->where('user_id', auth()->id())
+                ->where('task_status', 'done') // Filter hanya task yang selesai
+                ->get();
+        }
 
-        $monthName = Carbon::createFromFormat('m', $month)->format('F'); 
-
-        $developerName = auth()->user()->name;
+        $monthName = Carbon::createFromFormat('m', $month)->format('F');
+        $developerName = Auth::user()->name;
         $overtimeLimit = Carbon::parse('17:00:00');
 
         $totalOvertime = 0;
@@ -210,25 +221,34 @@ class TaskReportResource extends Resource
                     $totalOvertime += $overtimeMinutes / 60;
                 }
             }
-            // $totalOvertime = max(0, round($totalOvertime, 2));
         }
 
-        // Generate PDF
+        // Generate PDF dengan data
         $pdf = Pdf::loadView('pdf.task_report', [
             'taskReports' => $taskReports,
-            'totalOvertime' => round($totalOvertime, 2), // Pembulatan overtime
+            'totalOvertime' => round($totalOvertime, 2),
             'monthName' => $monthName,
             'year' => $year,
-            'developerName' => $developerName
+            'developerName' => Auth::user()->hasRole('manager') ? 'All Developers' : $developerName,
         ]);
 
-        return $pdf->download('Report-' . $developerName . '-' . $monthName . '-' . $year . '.pdf');
+        // Nama file PDF
+        $fileName = 'Report-' . ($developerName) . '-' . $monthName . '-' . $year . '.pdf';
+
+        // Stream PDF di browser
+        return $pdf->stream($fileName);
     }
+
 
     public static function canViewAny(): bool
     {
-        return Auth::user()->can('manage reports');
+        if (Auth::user()->hasRole('manager')) {
+            return true;
+        }
+
+        return Auth::user()->hasRole('developer');
     }
+
 
     public static function canCreate(): bool
     {
@@ -237,7 +257,7 @@ class TaskReportResource extends Resource
 
     public static function canEdit($record): bool
     {
-        return Auth::user()->can('manage reports');
+        return $record->user_id === Auth::user()->id;
     }
 
     public static function canDelete($record): bool

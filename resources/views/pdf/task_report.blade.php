@@ -32,10 +32,10 @@
     <table>
         <thead>
             <tr>
-                <th>Module</th>
                 <th>Module Code</th>
-                <th>Task</th>
+                <th>Module</th>
                 <th>Task Code</th>
+                <th>Task</th>
                 <th>Date</th>
                 <th>Start Time</th>
                 <th>End Time</th>
@@ -46,10 +46,10 @@
         <tbody>
             @foreach ($taskReports as $report)
                 <tr>
-                    <td>{{ $report->module->module_name }}</td>
                     <td>{{ $report->module->module_code }}</td>
-                    <td>{{ $report->task->task_name }}</td>
+                    <td>{{ $report->module->module_name }}</td>
                     <td>{{ $report->task->task_code }} </td>
+                    <td>{{ $report->task->task_name }}</td>
                     <td>{{ $report->date }}</td>
                     <td>{{ $report->start_time }}</td>
                     <td>{{ $report->end_time }}</td>

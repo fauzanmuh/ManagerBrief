@@ -31,7 +31,7 @@ class RolePermissionSeeder extends Seeder
         $developer = Role::create(['name' => 'developer']);
 
         // Assign permissions to roles
-        $manager->givePermissionTo(['manage data user', 'manage developer', 'manage tasks', 'manage modules', 'manage projects', 'manage task types']);
+        $manager->givePermissionTo(['manage data user', 'manage developer', 'manage tasks', 'manage modules', 'manage projects', 'manage task types', 'manage reports']);
         $developer->givePermissionTo(['manage reports']);
     }
 }
