@@ -87,10 +87,14 @@ class TaskResource extends Resource
                 Tables\Columns\TextColumn::make('module.module_name')
                     ->label('Module')
                     ->searchable()
+                    ->default('-')
+                    ->alignCenter()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('module.module_code')
                     ->label('Module Code')
                     ->searchable()
+                    ->default('-')
+                    ->alignCenter()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('taskType.name')
                     ->label('Task Type')
