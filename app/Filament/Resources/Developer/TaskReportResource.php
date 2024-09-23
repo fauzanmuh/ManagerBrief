@@ -4,7 +4,10 @@ namespace App\Filament\Resources\Developer;
 
 use App\Filament\Resources\Developer\TaskReportResource\Pages;
 use App\Filament\Resources\Developer\TaskReportResource\RelationManagers;
+use App\Models\Task;
 use App\Models\TaskReport;
+use App\Models\TaskType;
+use App\Models\User;
 use Auth;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -19,6 +22,9 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -59,20 +65,20 @@ class TaskReportResource extends Resource
                     ->options(function (callable $get) {
                         $taskTypeId = $get('task_type_id');
 
-                        return $taskTypeId ? \App\Models\Task::where('task_type_id', $taskTypeId)->pluck('task_name', 'id') : [];
+                        return $taskTypeId ? Task::where('task_type_id', $taskTypeId)->pluck('task_name', 'id') : [];
                     }),
 
                 Select::make('module_id')
                     ->label('Module')
                     ->relationship('module', 'module_name')
                     ->visible(
-                        fn($record, $get) => \App\Models\TaskType::query()
+                        fn($record, $get) => TaskType::query()
                             ->where('id', $get('task_type_id'))
                             ->whereIn('name', ['Task', 'R & D'])
                             ->exists()
                     )
                     ->disabled(
-                        fn($record, $get) => \App\Models\TaskType::query()
+                        fn($record, $get) => TaskType::query()
                             ->where('id', $get('task_type_id'))
                             ->whereIn('name', ['Meeting', 'Content', 'Discussion'])
                             ->exists()
@@ -81,7 +87,7 @@ class TaskReportResource extends Resource
                     ->label('Developer')
                     ->relationship('user', 'name')
                     ->options(function () {
-                        return \App\Models\User::pluck('name', 'id');
+                        return User::pluck('name', 'id');
                     })
                     ->default(function () {
                         return auth()->user()->id;
@@ -183,8 +189,46 @@ class TaskReportResource extends Resource
                     ->boolean(),
             ])
             ->filters([
-                //
+                SelectFilter::make('user_id')
+                    ->label('Filter by Developer')
+                    ->visible(fn() => Auth::user()->hasRole('manager'))
+                    ->options(function () {
+                        return User::whereHas('role', function ($query) {
+                            $query->where('name', 'developer');
+                        })->pluck('name', 'id');
+                    }),
+                Filter::make('date')
+                    ->form([
+                        DatePicker::make('from')->label('From')
+                            ->label('Mulai Tanggal'),
+                        DatePicker::make('until')->label('Until')
+                            ->label('Sampai Tanggal'),
+                    ])
+                    ->indicateUsing(function (array $data): array {
+                        $indicators = [];
+
+                        if ($data['from'] ?? null) {
+                            $indicators['from'] = 'Mulai Tanggal ' . Carbon::parse($data['from'])->toFormattedDateString();
+                        }
+
+                        if ($data['until'] ?? null) {
+                            $indicators['until'] = 'Sampai Tanggal ' . Carbon::parse($data['until'])->toFormattedDateString();
+                        }
+
+                        return $indicators;
+                    })
+                    ->query(function (Builder $query, array $data) {
+                        if (!empty($data['from'])) {
+                            $query->where('date', '>=', Carbon::parse($data['from'])->startOfDay());
+                        }
+
+                        if (!empty($data['until'])) {
+                            $query->where('date', '<=', Carbon::parse($data['until'])->endOfDay());
+                        }
+                    }),
             ])
+            ->filtersLayout(FiltersLayout::AboveContentCollapsible)
+            
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
