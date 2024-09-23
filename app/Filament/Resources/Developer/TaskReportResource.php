@@ -44,39 +44,39 @@ class TaskReportResource extends Resource
         return $form
             ->schema([
                 Select::make('task_type_id')
-                ->label('Task Type')
-                ->relationship('taskType', 'name')
-                ->required()
-                ->reactive()
-                ->afterStateUpdated(function ($state, callable $get, callable $set) {
-                    $set('task_id', null);
-                }),
+                    ->label('Task Type')
+                    ->relationship('taskType', 'name')
+                    ->required()
+                    ->reactive()
+                    ->afterStateUpdated(function ($state, callable $get, callable $set) {
+                        $set('task_id', null);
+                    }),
 
-            Select::make('task_id')
-                ->label('Task')
-                ->relationship('task', 'task_name')
-                ->required()
-                ->options(function (callable $get) {
-                    $taskTypeId = $get('task_type_id');
+                Select::make('task_id')
+                    ->label('Task')
+                    ->relationship('task', 'task_name')
+                    ->required()
+                    ->options(function (callable $get) {
+                        $taskTypeId = $get('task_type_id');
 
-                    return $taskTypeId ? \App\Models\Task::where('task_type_id', $taskTypeId)->pluck('task_name', 'id') : [];
-                }),
+                        return $taskTypeId ? \App\Models\Task::where('task_type_id', $taskTypeId)->pluck('task_name', 'id') : [];
+                    }),
 
                 Select::make('module_id')
-                ->label('Module')
-                ->relationship('module', 'module_name')
-                ->visible(
-                    fn($record, $get) => \App\Models\TaskType::query()
-                    ->where('id', $get('task_type_id'))
-                    ->whereIn('name', ['Task', 'R & D'])
-                    ->exists()
-                )
-                ->disabled(
-                    fn($record, $get) => \App\Models\TaskType::query()
-                    ->where('id', $get('task_type_id'))
-                    ->whereIn('name', ['Meeting', 'Content', 'Discussion'])
-                    ->exists()
-                ),
+                    ->label('Module')
+                    ->relationship('module', 'module_name')
+                    ->visible(
+                        fn($record, $get) => \App\Models\TaskType::query()
+                            ->where('id', $get('task_type_id'))
+                            ->whereIn('name', ['Task', 'R & D'])
+                            ->exists()
+                    )
+                    ->disabled(
+                        fn($record, $get) => \App\Models\TaskType::query()
+                            ->where('id', $get('task_type_id'))
+                            ->whereIn('name', ['Meeting', 'Content', 'Discussion'])
+                            ->exists()
+                    ),
                 Select::make('user_id')
                     ->label('Developer')
                     ->relationship('user', 'name')
@@ -136,12 +136,14 @@ class TaskReportResource extends Resource
                     ->label('Module')
                     ->alignCenter()
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->default('-'),
                 Tables\Columns\TextColumn::make('module.module_code')
                     ->label('Module Code')
                     ->alignCenter()
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->default('-'),
                 Tables\Columns\TextColumn::make('task.task_name')
                     ->label('Task')
                     ->searchable()
@@ -172,7 +174,7 @@ class TaskReportResource extends Resource
                         'done' => 'Done',
                         'not_started' => 'Not Started'
                     ])
-                    ->disabled(fn ($record) => Auth::user()->hasRole('manager'))
+                    ->disabled(fn($record) => Auth::user()->hasRole('manager'))
                     ->sortable(),
                 Tables\Columns\IconColumn::make('is_overtime')
                     ->label('Is Overtime')
@@ -228,7 +230,7 @@ class TaskReportResource extends Resource
         $developerName = Auth::user()->name;
         $overtimeLimit = Carbon::parse('17:00:00');
 
-        $totalOvertime = 0;
+        $totalOvertimeMinutes = 0;
         foreach ($taskReports as $report) {
             $startTime = Carbon::parse($report->start_time);
             $endTime = Carbon::parse($report->end_time);
@@ -244,14 +246,18 @@ class TaskReportResource extends Resource
                     } else {
                         $overtimeMinutes = $endTime->diffInMinutes($startTime);
                     }
-                    $totalOvertime += $overtimeMinutes / 60;
+                    $totalOvertimeMinutes += $overtimeMinutes;
                 }
             }
         }
 
+        $totalHours = intdiv($totalOvertimeMinutes, 60);
+        $totalMinutes = $totalOvertimeMinutes % 60;
+        $totalOvertimeFormatted = "{$totalHours} jam {$totalMinutes} menit";
+
         $pdf = Pdf::loadView('pdf.task_report', [
             'taskReports' => $taskReports,
-            'totalOvertime' => round($totalOvertime, 2),
+            'totalOvertime' => $totalOvertimeFormatted,
             'monthName' => $monthName,
             'year' => $year,
             'developerName' => Auth::user()->hasRole('manager') ? 'All Developers' : $developerName,

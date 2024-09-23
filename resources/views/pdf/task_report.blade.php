@@ -23,11 +23,11 @@
     </style>
 </head>
 <body>
-    <h1>Task Report untuk {{ $monthName }} {{ $year }}</h1>
+    <h1>Task Report {{ $monthName }} {{ $year }}</h1>
     <p><strong>Developer:</strong> {{ $developerName }}</p> <!-- Nama developer -->
     <p><strong>Bulan:</strong> {{ $monthName }}</p>
     <p><strong>Tahun:</strong> {{ $year }}</p>
-    <p><strong>Total Overtime Hours:</strong> {{ $totalOvertime }} hours</p>
+    <p><strong>Total Overtime Hours:</strong> {{ $totalOvertime }}</p>
 
     <table>
         <thead>
@@ -48,8 +48,8 @@
             @foreach ($taskReports as $report)
                 <tr>
                     <td>{{ $report->taskType->name }}</td>
-                    <td>{{ $report->module->module_code }}</td>
-                    <td>{{ $report->module->module_name }}</td>
+                    <td>{{ optional($report->module)->module_code ?? '-' }}</td>
+                    <td>{{ optional($report->module)->module_name ?? '-' }}</td>
                     <td>{{ $report->task->task_code }} </td>
                     <td>{{ $report->task->task_name }}</td>
                     <td>{{ $report->date }}</td>
