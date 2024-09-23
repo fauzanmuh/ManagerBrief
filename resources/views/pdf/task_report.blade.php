@@ -32,6 +32,7 @@
     <table>
         <thead>
             <tr>
+                <th>Task Type</th>
                 <th>Module Code</th>
                 <th>Module</th>
                 <th>Task Code</th>
@@ -46,6 +47,7 @@
         <tbody>
             @foreach ($taskReports as $report)
                 <tr>
+                    <td>{{ $report->taskType->name }}</td>
                     <td>{{ $report->module->module_code }}</td>
                     <td>{{ $report->module->module_name }}</td>
                     <td>{{ $report->task->task_code }} </td>

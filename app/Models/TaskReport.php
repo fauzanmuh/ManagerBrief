@@ -13,6 +13,7 @@ class TaskReport extends Model
         'date',
         'start_time',
         'end_time',
+        'task_type_id',
         'task_id',
         'user_id',
         'module_id',
@@ -23,6 +24,11 @@ class TaskReport extends Model
     public function task()
     {
         return $this->belongsTo(Task::class);
+    }
+
+    public function taskType()
+    {
+        return $this->belongsTo(TaskType::class);
     }
 
     public function user()

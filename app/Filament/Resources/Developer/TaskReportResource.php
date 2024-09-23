@@ -18,6 +18,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\SelectColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -42,14 +43,40 @@ class TaskReportResource extends Resource
     {
         return $form
             ->schema([
+                Select::make('task_type_id')
+                ->label('Task Type')
+                ->relationship('taskType', 'name')
+                ->required()
+                ->reactive()
+                ->afterStateUpdated(function ($state, callable $get, callable $set) {
+                    $set('task_id', null);
+                }),
+
+            Select::make('task_id')
+                ->label('Task')
+                ->relationship('task', 'task_name')
+                ->required()
+                ->options(function (callable $get) {
+                    $taskTypeId = $get('task_type_id');
+
+                    return $taskTypeId ? \App\Models\Task::where('task_type_id', $taskTypeId)->pluck('task_name', 'id') : [];
+                }),
+
                 Select::make('module_id')
-                    ->label('Module')
-                    ->relationship('module', 'module_name')
-                    ->required(),
-                Select::make('task_id')
-                    ->label('Task')
-                    ->relationship('task', 'task_name')
-                    ->required(),
+                ->label('Module')
+                ->relationship('module', 'module_name')
+                ->visible(
+                    fn($record, $get) => \App\Models\TaskType::query()
+                    ->where('id', $get('task_type_id'))
+                    ->whereIn('name', ['Task', 'R & D'])
+                    ->exists()
+                )
+                ->disabled(
+                    fn($record, $get) => \App\Models\TaskType::query()
+                    ->where('id', $get('task_type_id'))
+                    ->whereIn('name', ['Meeting', 'Content', 'Discussion'])
+                    ->exists()
+                ),
                 Select::make('user_id')
                     ->label('Developer')
                     ->relationship('user', 'name')
@@ -98,6 +125,13 @@ class TaskReportResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('Developer')
+                    ->alignCenter(),
+                TextColumn::make('taskType.name')
+                    ->label('Task Type')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('module.module_name')
                     ->label('Module')
                     ->alignCenter()
@@ -118,10 +152,6 @@ class TaskReportResource extends Resource
                     ->searchable()
                     ->alignCenter()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('user.name')
-                    ->label('Developer')
-                    ->alignCenter()
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('date')
                     ->label('Date')
                     ->alignCenter()
@@ -179,21 +209,18 @@ class TaskReportResource extends Resource
         $month = $request->input('month', Carbon::now()->format('m'));
         $year = $request->input('year', Carbon::now()->format('Y'));
 
-        // Cek peran pengguna
         if (Auth::user()->hasRole('manager')) {
-            // Manajer dapat melihat semua laporan
             $taskReports = TaskReport::with(['module', 'task', 'user'])
                 ->whereMonth('date', $month)
                 ->whereYear('date', $year)
-                ->where('task_status', 'done') // Filter hanya task yang selesai
+                ->where('task_status', 'done')
                 ->get();
         } else {
-            // Developer hanya dapat melihat laporan mereka sendiri
             $taskReports = TaskReport::with(['module', 'task', 'user'])
                 ->whereMonth('date', $month)
                 ->whereYear('date', $year)
                 ->where('user_id', auth()->id())
-                ->where('task_status', 'done') // Filter hanya task yang selesai
+                ->where('task_status', 'done')
                 ->get();
         }
 
@@ -217,13 +244,11 @@ class TaskReportResource extends Resource
                     } else {
                         $overtimeMinutes = $endTime->diffInMinutes($startTime);
                     }
-
                     $totalOvertime += $overtimeMinutes / 60;
                 }
             }
         }
 
-        // Generate PDF dengan data
         $pdf = Pdf::loadView('pdf.task_report', [
             'taskReports' => $taskReports,
             'totalOvertime' => round($totalOvertime, 2),
@@ -232,10 +257,8 @@ class TaskReportResource extends Resource
             'developerName' => Auth::user()->hasRole('manager') ? 'All Developers' : $developerName,
         ]);
 
-        // Nama file PDF
         $fileName = 'Report-' . ($developerName) . '-' . $monthName . '-' . $year . '.pdf';
 
-        // Stream PDF di browser
         return $pdf->stream($fileName);
     }
 
@@ -257,7 +280,7 @@ class TaskReportResource extends Resource
 
     public static function canEdit($record): bool
     {
-        return $record->user_id === Auth::user()->id;
+        return Auth::user()->can('manage reports');
     }
 
     public static function canDelete($record): bool

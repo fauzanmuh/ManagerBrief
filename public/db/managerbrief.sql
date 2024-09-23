@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 19, 2024 at 10:59 AM
+-- Generation Time: Sep 20, 2024 at 11:27 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -38,9 +38,9 @@ CREATE TABLE `cache` (
 --
 
 INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
-('a17961fa74e9275d529f489537f179c05d50c2f3', 'i:1;', 1726736310),
-('a17961fa74e9275d529f489537f179c05d50c2f3:timer', 'i:1726736310;', 1726736310),
-('spatie.permission.cache', 'a:3:{s:5:\"alias\";a:4:{s:1:\"a\";s:2:\"id\";s:1:\"b\";s:4:\"name\";s:1:\"c\";s:10:\"guard_name\";s:1:\"r\";s:5:\"roles\";}s:11:\"permissions\";a:8:{i:0;a:4:{s:1:\"a\";i:1;s:1:\"b\";s:16:\"manage data user\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:1;a:4:{s:1:\"a\";i:2;s:1:\"b\";s:16:\"manage developer\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:2;a:4:{s:1:\"a\";i:3;s:1:\"b\";s:12:\"manage tasks\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:3;a:4:{s:1:\"a\";i:4;s:1:\"b\";s:14:\"manage modules\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:4;a:4:{s:1:\"a\";i:5;s:1:\"b\";s:15:\"manage projects\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:5;a:4:{s:1:\"a\";i:6;s:1:\"b\";s:17:\"manage task types\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:6;a:3:{s:1:\"a\";i:7;s:1:\"b\";s:18:\"update task status\";s:1:\"c\";s:3:\"web\";}i:7;a:4:{s:1:\"a\";i:8;s:1:\"b\";s:14:\"manage reports\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:2;}}}s:5:\"roles\";a:2:{i:0;a:3:{s:1:\"a\";i:1;s:1:\"b\";s:7:\"manager\";s:1:\"c\";s:3:\"web\";}i:1;a:3:{s:1:\"a\";i:2;s:1:\"b\";s:9:\"developer\";s:1:\"c\";s:3:\"web\";}}}', 1726821168);
+('a17961fa74e9275d529f489537f179c05d50c2f3', 'i:1;', 1726824475),
+('a17961fa74e9275d529f489537f179c05d50c2f3:timer', 'i:1726824475;', 1726824475),
+('spatie.permission.cache', 'a:3:{s:5:\"alias\";a:4:{s:1:\"a\";s:2:\"id\";s:1:\"b\";s:4:\"name\";s:1:\"c\";s:10:\"guard_name\";s:1:\"r\";s:5:\"roles\";}s:11:\"permissions\";a:8:{i:0;a:4:{s:1:\"a\";i:1;s:1:\"b\";s:16:\"manage data user\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:1;a:4:{s:1:\"a\";i:2;s:1:\"b\";s:16:\"manage developer\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:2;a:4:{s:1:\"a\";i:3;s:1:\"b\";s:12:\"manage tasks\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:3;a:4:{s:1:\"a\";i:4;s:1:\"b\";s:14:\"manage modules\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:4;a:4:{s:1:\"a\";i:5;s:1:\"b\";s:15:\"manage projects\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:5;a:4:{s:1:\"a\";i:6;s:1:\"b\";s:17:\"manage task types\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:6;a:3:{s:1:\"a\";i:7;s:1:\"b\";s:18:\"update task status\";s:1:\"c\";s:3:\"web\";}i:7;a:4:{s:1:\"a\";i:8;s:1:\"b\";s:14:\"manage reports\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:2;}}}s:5:\"roles\";a:2:{i:0;a:3:{s:1:\"a\";i:1;s:1:\"b\";s:7:\"manager\";s:1:\"c\";s:3:\"web\";}i:1;a:3:{s:1:\"a\";i:2;s:1:\"b\";s:9:\"developer\";s:1:\"c\";s:3:\"web\";}}}', 1726910590);
 
 -- --------------------------------------------------------
 
@@ -339,7 +339,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('NQTgawT0L0QYdxsy1XQf4fc2ah9gYYC3sWoJMdTO', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiaWxkeHg1aWlIVmViY082bTFrcGlxVlQ3ZktRbW5hcU45VW9KT25kSSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC91c2VyL2RldmVsb3Blci90YXNrLXJlcG9ydHMiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyO3M6MTc6InBhc3N3b3JkX2hhc2hfd2ViIjtzOjYwOiIkMnkkMTIkNGd5SXNnelh0L1ZwN29WNk0zaW85LnRwdWdER2pBY2ZFcXp1ZXBLakwvVEVFTWsvR09lQmEiO30=', 1726736322);
+('fklhTN0ySp7AkUJX1lYyPi4ySPyQrnaAbG4c1P5O', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiZTBPSngxSVJYR0RtcDRsMlZ0VGljb1B6a292RVlESU05S3dkZlNsRSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC91c2VyL2RldmVsb3Blci90YXNrLXJlcG9ydHMvY3JlYXRlIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjtzOjE3OiJwYXNzd29yZF9oYXNoX3dlYiI7czo2MDoiJDJ5JDEyJDRneUlzZ3pYdC9WcDdvVjZNM2lvOS50cHVnREdqQWNmRXF6dWVwS2pML1RFRU1rL0dPZUJhIjt9', 1726824425);
 
 -- --------------------------------------------------------
 
@@ -349,7 +349,7 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 
 CREATE TABLE `tasks` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `module_id` bigint(20) UNSIGNED NOT NULL,
+  `module_id` bigint(20) UNSIGNED DEFAULT NULL,
   `task_type_id` bigint(20) UNSIGNED NOT NULL,
   `task_code` varchar(255) NOT NULL,
   `task_name` varchar(255) NOT NULL,
@@ -364,7 +364,8 @@ CREATE TABLE `tasks` (
 --
 
 INSERT INTO `tasks` (`id`, `module_id`, `task_type_id`, `task_code`, `task_name`, `task_description`, `work_load`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'T-01', 'Task Manager Brief', 'Test', 7, '2024-09-19 00:27:09', '2024-09-19 00:27:09');
+(1, 1, 5, 'T-01', 'Task Manager Brief', 'Test', 7, '2024-09-19 00:27:09', '2024-09-20 02:24:41'),
+(2, NULL, 1, 'T-02', 'Meeting Client', 'asc', 1, '2024-09-20 02:26:42', '2024-09-20 02:26:42');
 
 -- --------------------------------------------------------
 
@@ -377,7 +378,7 @@ CREATE TABLE `task_reports` (
   `date` date NOT NULL,
   `start_time` time NOT NULL,
   `end_time` time DEFAULT NULL,
-  `module_id` bigint(20) UNSIGNED NOT NULL,
+  `module_id` bigint(20) UNSIGNED DEFAULT NULL,
   `task_id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `task_status` enum('done','progress','not_started') NOT NULL,
@@ -413,7 +414,11 @@ CREATE TABLE `task_types` (
 --
 
 INSERT INTO `task_types` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Meeting', '2024-09-19 00:25:30', '2024-09-19 00:25:30');
+(1, 'Meeting', '2024-09-19 00:25:30', '2024-09-19 00:25:30'),
+(2, 'R & D', '2024-09-20 02:23:42', '2024-09-20 02:23:42'),
+(3, 'Content', '2024-09-20 02:23:54', '2024-09-20 02:23:54'),
+(4, 'Discussion', '2024-09-20 02:24:08', '2024-09-20 02:24:08'),
+(5, 'Task', '2024-09-20 02:24:27', '2024-09-20 02:24:27');
 
 -- --------------------------------------------------------
 
@@ -439,7 +444,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `role_id`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Fauzan', 'fauzan', 'fauzan@gmail.com', 1, '2024-09-19 00:19:57', '$2y$12$wQx5LYVKHFA28czlPCBv0eW5Yd1QcQdLjYLRk7W7G50XQtBgHnLge', 'XAw5kh0KHmA25UeSvvg1Y8SqsPWLbMzwzqeqSSyBsVQqeaHDHa2vd7Mdypcb', '2024-09-19 00:19:57', '2024-09-19 00:19:57'),
+(1, 'Fauzan', 'fauzan', 'fauzan@gmail.com', 1, '2024-09-19 00:19:57', '$2y$12$wQx5LYVKHFA28czlPCBv0eW5Yd1QcQdLjYLRk7W7G50XQtBgHnLge', '6iYBSjEegSF66R1vRZyqjKIej2okwk8iyTIM1GuVZNmzKsazQR8YXyEAmZe9', '2024-09-19 00:19:57', '2024-09-19 00:19:57'),
 (2, 'haye', 'haye', 'haye@gmail.com', 2, NULL, '$2y$12$4gyIsgzXt/Vp7oV6M3io9.tpugDGjAcfEqzuepKjL/TEEMk/GOeBa', NULL, '2024-09-19 00:22:50', '2024-09-19 00:23:40'),
 (3, 'ragnar', 'ragnar', 'ragnar@gmail.com', 2, NULL, '$2y$12$rB44wQaosTkBBfeYXHebhO.7FPt0Ah/y95Lvjse5hsFY094p.Ltde', NULL, '2024-09-19 01:15:39', '2024-09-19 01:15:39');
 
@@ -642,7 +647,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `task_reports`
@@ -654,7 +659,7 @@ ALTER TABLE `task_reports`
 -- AUTO_INCREMENT for table `task_types`
 --
 ALTER TABLE `task_types`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
