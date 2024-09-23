@@ -26,12 +26,16 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('user')
-            ->path('user')
+            ->path('/')
             ->login()
             ->colors([
                 'primary' => Color::Green,
+                'gray' => Color::Sky,
+                'info' => Color::Blue,
+                'success' => Color::Emerald,
+                'warning' => Color::Orange,
             ])
-            ->font('Montserrat')
+            ->font('Oxygen')
             ->favicon(asset('img/logo.png'))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
