@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->date('date');
             $table->time('start_time');
             $table->time('end_time')->nullable();
-            $table->foreignId('module_id')->constrained('modules')->onDelete('cascade');
+            $table->foreignId('module_id')->nullable()->constrained('modules')->onDelete('cascade');
             $table->foreignId('task_id')->constrained('tasks')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->enum('task_status', ['done', 'progress', 'not_started']);

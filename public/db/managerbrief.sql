@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 20, 2024 at 11:27 AM
+-- Generation Time: Sep 23, 2024 at 06:15 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -38,9 +38,9 @@ CREATE TABLE `cache` (
 --
 
 INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
-('a17961fa74e9275d529f489537f179c05d50c2f3', 'i:1;', 1726824475),
-('a17961fa74e9275d529f489537f179c05d50c2f3:timer', 'i:1726824475;', 1726824475),
-('spatie.permission.cache', 'a:3:{s:5:\"alias\";a:4:{s:1:\"a\";s:2:\"id\";s:1:\"b\";s:4:\"name\";s:1:\"c\";s:10:\"guard_name\";s:1:\"r\";s:5:\"roles\";}s:11:\"permissions\";a:8:{i:0;a:4:{s:1:\"a\";i:1;s:1:\"b\";s:16:\"manage data user\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:1;a:4:{s:1:\"a\";i:2;s:1:\"b\";s:16:\"manage developer\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:2;a:4:{s:1:\"a\";i:3;s:1:\"b\";s:12:\"manage tasks\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:3;a:4:{s:1:\"a\";i:4;s:1:\"b\";s:14:\"manage modules\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:4;a:4:{s:1:\"a\";i:5;s:1:\"b\";s:15:\"manage projects\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:5;a:4:{s:1:\"a\";i:6;s:1:\"b\";s:17:\"manage task types\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:6;a:3:{s:1:\"a\";i:7;s:1:\"b\";s:18:\"update task status\";s:1:\"c\";s:3:\"web\";}i:7;a:4:{s:1:\"a\";i:8;s:1:\"b\";s:14:\"manage reports\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:2;}}}s:5:\"roles\";a:2:{i:0;a:3:{s:1:\"a\";i:1;s:1:\"b\";s:7:\"manager\";s:1:\"c\";s:3:\"web\";}i:1;a:3:{s:1:\"a\";i:2;s:1:\"b\";s:9:\"developer\";s:1:\"c\";s:3:\"web\";}}}', 1726910590);
+('a17961fa74e9275d529f489537f179c05d50c2f3', 'i:1;', 1727064871),
+('a17961fa74e9275d529f489537f179c05d50c2f3:timer', 'i:1727064871;', 1727064871),
+('spatie.permission.cache', 'a:3:{s:5:\"alias\";a:4:{s:1:\"a\";s:2:\"id\";s:1:\"b\";s:4:\"name\";s:1:\"c\";s:10:\"guard_name\";s:1:\"r\";s:5:\"roles\";}s:11:\"permissions\";a:8:{i:0;a:4:{s:1:\"a\";i:1;s:1:\"b\";s:16:\"manage data user\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:1;a:4:{s:1:\"a\";i:2;s:1:\"b\";s:16:\"manage developer\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:2;a:4:{s:1:\"a\";i:3;s:1:\"b\";s:12:\"manage tasks\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:3;a:4:{s:1:\"a\";i:4;s:1:\"b\";s:14:\"manage modules\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:4;a:4:{s:1:\"a\";i:5;s:1:\"b\";s:15:\"manage projects\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:5;a:4:{s:1:\"a\";i:6;s:1:\"b\";s:17:\"manage task types\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:6;a:3:{s:1:\"a\";i:7;s:1:\"b\";s:18:\"update task status\";s:1:\"c\";s:3:\"web\";}i:7;a:4:{s:1:\"a\";i:8;s:1:\"b\";s:14:\"manage reports\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:2;}}}s:5:\"roles\";a:2:{i:0;a:3:{s:1:\"a\";i:1;s:1:\"b\";s:7:\"manager\";s:1:\"c\";s:3:\"web\";}i:1;a:3:{s:1:\"a\";i:2;s:1:\"b\";s:9:\"developer\";s:1:\"c\";s:3:\"web\";}}}', 1727147967);
 
 -- --------------------------------------------------------
 
@@ -155,7 +155,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (7, '2024_09_18_071651_create_permission_tables', 1),
 (8, '2024_09_18_074019_create_users_table', 1),
 (9, '2024_09_19_071439_create_developers_table', 1),
-(10, '2024_09_19_071512_create_task_reports_table', 1);
+(10, '2024_09_19_071512_create_task_reports_table', 1),
+(11, '2024_09_20_090714_add_task_type_id_to_task_reports_table', 2);
 
 -- --------------------------------------------------------
 
@@ -339,7 +340,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('fklhTN0ySp7AkUJX1lYyPi4ySPyQrnaAbG4c1P5O', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiZTBPSngxSVJYR0RtcDRsMlZ0VGljb1B6a292RVlESU05S3dkZlNsRSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC91c2VyL2RldmVsb3Blci90YXNrLXJlcG9ydHMvY3JlYXRlIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjtzOjE3OiJwYXNzd29yZF9oYXNoX3dlYiI7czo2MDoiJDJ5JDEyJDRneUlzZ3pYdC9WcDdvVjZNM2lvOS50cHVnREdqQWNmRXF6dWVwS2pML1RFRU1rL0dPZUJhIjt9', 1726824425);
+('ehQDbebmyRieD4CggEsblw9aqF9Cmidfi50XV077', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiQldIMFNQNEo5UnNNSldCUEhBcTVqVnRTRWNIQzR6dDFIYlpXaWhObSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC91c2VyL2RldmVsb3Blci90YXNrLXJlcG9ydHMiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MTc6InBhc3N3b3JkX2hhc2hfd2ViIjtzOjYwOiIkMnkkMTIkd1F4NUxZVktIRkEyOGN6bFBDQnYwZVc1WWQxUWNRZExqWUxSazdXN0c1MFhRdEJnSG5MZ2UiO30=', 1727064849);
 
 -- --------------------------------------------------------
 
@@ -365,7 +366,9 @@ CREATE TABLE `tasks` (
 
 INSERT INTO `tasks` (`id`, `module_id`, `task_type_id`, `task_code`, `task_name`, `task_description`, `work_load`, `created_at`, `updated_at`) VALUES
 (1, 1, 5, 'T-01', 'Task Manager Brief', 'Test', 7, '2024-09-19 00:27:09', '2024-09-20 02:24:41'),
-(2, NULL, 1, 'T-02', 'Meeting Client', 'asc', 1, '2024-09-20 02:26:42', '2024-09-20 02:26:42');
+(2, NULL, 1, 'T-02', 'Meeting Client', 'asc', 1, '2024-09-20 02:26:42', '2024-09-20 02:26:42'),
+(3, NULL, 3, 'T-03', 'Tiktok', 'asc', 1, '2024-09-20 02:49:21', '2024-09-20 02:49:21'),
+(4, 1, 2, 'T-04', 'Brief', 'awq', 5, '2024-09-20 02:49:50', '2024-09-20 02:49:50');
 
 -- --------------------------------------------------------
 
@@ -375,6 +378,7 @@ INSERT INTO `tasks` (`id`, `module_id`, `task_type_id`, `task_code`, `task_name`
 
 CREATE TABLE `task_reports` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `task_type_id` bigint(20) UNSIGNED DEFAULT NULL,
   `date` date NOT NULL,
   `start_time` time NOT NULL,
   `end_time` time DEFAULT NULL,
@@ -391,10 +395,12 @@ CREATE TABLE `task_reports` (
 -- Dumping data for table `task_reports`
 --
 
-INSERT INTO `task_reports` (`id`, `date`, `start_time`, `end_time`, `module_id`, `task_id`, `user_id`, `task_status`, `is_overtime`, `created_at`, `updated_at`) VALUES
-(1, '2024-09-19', '14:38:49', '18:38:49', 1, 1, 2, 'progress', 0, NULL, '2024-09-19 01:13:56'),
-(2, '2024-09-20', '15:14:40', '20:14:44', 1, 1, 2, 'not_started', 0, '2024-09-19 01:14:49', '2024-09-19 01:14:49'),
-(3, '2024-09-20', '15:16:35', '17:16:39', 1, 1, 3, 'not_started', 0, '2024-09-19 01:16:44', '2024-09-19 01:16:44');
+INSERT INTO `task_reports` (`id`, `task_type_id`, `date`, `start_time`, `end_time`, `module_id`, `task_id`, `user_id`, `task_status`, `is_overtime`, `created_at`, `updated_at`) VALUES
+(1, 5, '2024-09-19', '14:38:49', '18:38:49', 1, 1, 2, 'done', 1, NULL, '2024-09-22 18:29:27'),
+(2, 2, '2024-09-20', '15:14:40', '20:14:44', 1, 4, 2, 'done', 0, '2024-09-19 01:14:49', '2024-09-22 18:11:57'),
+(3, 5, '2024-09-20', '15:16:35', '17:16:39', 1, 1, 3, 'done', 1, '2024-09-19 01:16:44', '2024-09-22 18:42:40'),
+(6, 3, '2024-09-19', '13:00:39', '14:35:43', NULL, 3, 3, 'done', 0, '2024-09-22 19:00:59', '2024-09-22 19:00:59'),
+(7, 3, '2024-08-22', '09:34:21', '15:40:32', NULL, 3, 2, 'done', 1, '2024-09-22 19:34:37', '2024-09-22 19:35:05');
 
 -- --------------------------------------------------------
 
@@ -444,7 +450,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `role_id`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Fauzan', 'fauzan', 'fauzan@gmail.com', 1, '2024-09-19 00:19:57', '$2y$12$wQx5LYVKHFA28czlPCBv0eW5Yd1QcQdLjYLRk7W7G50XQtBgHnLge', '6iYBSjEegSF66R1vRZyqjKIej2okwk8iyTIM1GuVZNmzKsazQR8YXyEAmZe9', '2024-09-19 00:19:57', '2024-09-19 00:19:57'),
+(1, 'Fauzan', 'fauzan', 'fauzan@gmail.com', 1, '2024-09-19 00:19:57', '$2y$12$wQx5LYVKHFA28czlPCBv0eW5Yd1QcQdLjYLRk7W7G50XQtBgHnLge', 'Bedy6aUeU7pj3lwcoUGRDxvt6rMeA69asjWo2Ai6OGv9rt0zdga3GNCbIFPL', '2024-09-19 00:19:57', '2024-09-19 00:19:57'),
 (2, 'haye', 'haye', 'haye@gmail.com', 2, NULL, '$2y$12$4gyIsgzXt/Vp7oV6M3io9.tpugDGjAcfEqzuepKjL/TEEMk/GOeBa', NULL, '2024-09-19 00:22:50', '2024-09-19 00:23:40'),
 (3, 'ragnar', 'ragnar', 'ragnar@gmail.com', 2, NULL, '$2y$12$rB44wQaosTkBBfeYXHebhO.7FPt0Ah/y95Lvjse5hsFY094p.Ltde', NULL, '2024-09-19 01:15:39', '2024-09-19 01:15:39');
 
@@ -574,7 +580,8 @@ ALTER TABLE `task_reports`
   ADD PRIMARY KEY (`id`),
   ADD KEY `task_reports_module_id_foreign` (`module_id`),
   ADD KEY `task_reports_task_id_foreign` (`task_id`),
-  ADD KEY `task_reports_user_id_foreign` (`user_id`);
+  ADD KEY `task_reports_user_id_foreign` (`user_id`),
+  ADD KEY `task_reports_task_type_id_foreign` (`task_type_id`);
 
 --
 -- Indexes for table `task_types`
@@ -617,7 +624,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `modules`
@@ -647,13 +654,13 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `task_reports`
 --
 ALTER TABLE `task_reports`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `task_types`
@@ -715,6 +722,7 @@ ALTER TABLE `tasks`
 ALTER TABLE `task_reports`
   ADD CONSTRAINT `task_reports_module_id_foreign` FOREIGN KEY (`module_id`) REFERENCES `modules` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `task_reports_task_id_foreign` FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `task_reports_task_type_id_foreign` FOREIGN KEY (`task_type_id`) REFERENCES `task_types` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `task_reports_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
