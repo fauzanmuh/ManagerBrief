@@ -305,7 +305,7 @@ class TaskReportResource extends Resource
             'monthName' => $monthName,
             'year' => $year,
             'developerName' => Auth::user()->hasRole('manager') ? 'All Developers' : $developerName,
-        ]);
+        ])->setPaper('a4', 'landscape');;
 
         $fileName = 'Report-' . ($developerName) . '-' . $monthName . '-' . $year . '.pdf';
 
