@@ -305,7 +305,7 @@ class TaskReportResource extends Resource
             'monthName' => $monthName,
             'year' => $year,
             'developerName' => Auth::user()->hasRole('manager') ? 'All Developers' : $developerName,
-        ])->setPaper('a4', 'landscape');;
+        ])->setPaper('a4', 'landscape');
 
         $fileName = 'Report-' . ($developerName) . '-' . $monthName . '-' . $year . '.pdf';
 
@@ -370,6 +370,11 @@ class TaskReportResource extends Resource
         $count = static::getModel()::where('user_id', $userId)->count();
 
         return $count > 0 ? (string) $count : null;
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Task Management';
     }
 
     public static function getPages(): array
