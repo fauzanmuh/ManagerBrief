@@ -228,7 +228,7 @@ class TaskReportResource extends Resource
                     }),
             ])
             ->filtersLayout(FiltersLayout::AboveContentCollapsible)
-            
+
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
@@ -266,12 +266,11 @@ class TaskReportResource extends Resource
                 ->whereMonth('date', $month)
                 ->whereYear('date', $year)
                 ->where('user_id', auth()->id())
-                ->where('task_status', 'done')
                 ->get();
         }
 
         $monthName = Carbon::createFromFormat('m', $month)->format('F');
-        $developerName = Auth::user()->name;
+        $developerName = Auth::user()->hasRole('manager') ? 'All Developers' : Auth::user()->name;
         $overtimeLimit = Carbon::parse('17:00:00');
 
         $totalOvertimeMinutes = 0;
@@ -297,17 +296,19 @@ class TaskReportResource extends Resource
 
         $totalHours = intdiv($totalOvertimeMinutes, 60);
         $totalMinutes = $totalOvertimeMinutes % 60;
-        $totalOvertimeFormatted = "{$totalHours} jam {$totalMinutes} menit";
+
+        $totalOvertimeFormatted = $totalHours . " Jam " . $totalMinutes . " Menit";
+        // $totalOvertimeFormatted = max(0, $totalHours) . " Jam " . max(0, $totalMinutes) . " Menit";
 
         $pdf = Pdf::loadView('pdf.task_report', [
             'taskReports' => $taskReports,
             'totalOvertime' => $totalOvertimeFormatted,
             'monthName' => $monthName,
             'year' => $year,
-            'developerName' => Auth::user()->hasRole('manager') ? 'All Developers' : $developerName,
+            'developerName' => $developerName,
         ])->setPaper('a4', 'landscape');
 
-        $fileName = 'Report-' . ($developerName) . '-' . $monthName . '-' . $year . '.pdf';
+        $fileName = 'Report-' . $developerName . '-' . $monthName . '-' . $year . '.pdf';
 
         return $pdf->stream($fileName);
     }
