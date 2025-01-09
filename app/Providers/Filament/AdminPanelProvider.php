@@ -28,13 +28,13 @@ class AdminPanelProvider extends PanelProvider
             ->id('user')
             ->path('/')
             ->login()
-            ->colors([
-                'primary' => Color::Green,
-                'gray' => Color::Sky,
-                'info' => Color::Blue,
-                'success' => Color::Emerald,
-                'warning' => Color::Orange,
-            ])
+            // ->colors([
+            //     'primary' => Color::Green,
+            //     'gray' => Color::Sky,
+            //     'info' => Color::Blue,
+            //     'success' => Color::Emerald,
+            //     'warning' => Color::Orange,
+            // ])
             ->font('Oxygen')
             ->favicon(asset('img/logo.png'))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
@@ -46,6 +46,9 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
             ])
+            ->plugin(
+                \Hasnayeen\Themes\ThemesPlugin::make(),
+            )
             ->middleware(
                 [
                     EncryptCookies::class,
@@ -57,6 +60,7 @@ class AdminPanelProvider extends PanelProvider
                     SubstituteBindings::class,
                     DisableBladeIconComponents::class,
                     DispatchServingFilamentEvent::class,
+                    \Hasnayeen\Themes\Http\Middleware\SetTheme::class,
                 ],
             )
             ->authMiddleware([
